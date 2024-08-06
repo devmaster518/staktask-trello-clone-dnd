@@ -1,15 +1,14 @@
-import "../styles/Card.css";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
 
 import CardEditor from "./CardEditor";
+import "../styles/Card.css";
 
 class Card extends Component {
   state = {
     hover: false,
-    editing: false
+    editing: false,
   };
 
   startHover = () => this.setState({ hover: true });
@@ -19,19 +18,19 @@ class Card extends Component {
     this.setState({
       hover: false,
       editing: true,
-      text: this.props.card.text
+      text: this.props.card.text,
     });
 
   endEditing = () => this.setState({ hover: false, editing: false });
 
-  editCard = async text => {
+  editCard = async (text) => {
     const { card, dispatch } = this.props;
 
     this.endEditing();
 
     dispatch({
       type: "CHANGE_CARD_TEXT",
-      payload: { cardId: card._id, cardText: text }
+      payload: { cardId: card._id, cardText: text },
     });
   };
 
@@ -41,7 +40,7 @@ class Card extends Component {
     if (window.confirm("Are you sure to delete this card?")) {
       dispatch({
         type: "DELETE_CARD",
-        payload: { cardId: card._id, listId }
+        payload: { cardId: card._id, listId },
       });
     }
   };
@@ -89,7 +88,7 @@ class Card extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  card: state.cardsById[ownProps.cardId]
+  card: state.cardsById[ownProps.cardId],
 });
 
 export default connect(mapStateToProps)(Card);

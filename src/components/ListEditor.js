@@ -1,19 +1,19 @@
-import "../styles/ListEditor.css";
-
 import React, { Component } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+
+import "../styles/ListEditor.css";
 
 class ListEditor extends Component {
   ref = React.createRef();
 
-  onEnter = e => {
+  onEnter = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       this.props.saveList();
     }
   };
 
-  handleClick = e => {
+  handleClick = (e) => {
     const node = this.ref.current;
 
     if (node.contains(e.target)) {

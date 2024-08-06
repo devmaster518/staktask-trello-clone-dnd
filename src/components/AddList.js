@@ -1,17 +1,17 @@
-import "../styles/AddList.css";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import ListEditor from "./ListEditor";
 import shortid from "shortid";
+
+import ListEditor from "./ListEditor";
 import EditButtons from "./EditButtons";
+import "../styles/AddList.css";
 
 class AddList extends Component {
   state = {
-    title: ""
+    title: "",
   };
 
-  handleChangeTitle = e => this.setState({ title: e.target.value });
+  handleChangeTitle = (e) => this.setState({ title: e.target.value });
 
   createList = async () => {
     const { title } = this.state;
@@ -21,7 +21,7 @@ class AddList extends Component {
 
     dispatch({
       type: "ADD_LIST",
-      payload: { listId: shortid.generate(), listTitle: title }
+      payload: { listId: shortid.generate(), listTitle: title },
     });
   };
 

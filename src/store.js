@@ -1,5 +1,6 @@
 import { combineReducers, createStore } from "redux";
 import throttle from "lodash.throttle";
+
 import seed from "./seed";
 
 const board = (state = { lists: [] }, action) => {
@@ -17,7 +18,7 @@ const board = (state = { lists: [] }, action) => {
     }
     case "DELETE_LIST": {
       const { listId } = action.payload;
-      const filterDeleted = tmpListId => tmpListId !== listId;
+      const filterDeleted = (tmpListId) => tmpListId !== listId;
       const newLists = state.lists.filter(filterDeleted);
       return { lists: newLists };
     }
@@ -32,14 +33,14 @@ const listsById = (state = {}, action) => {
       const { listId, listTitle } = action.payload;
       return {
         ...state,
-        [listId]: { _id: listId, title: listTitle, cards: [] }
+        [listId]: { _id: listId, title: listTitle, cards: [] },
       };
     }
     case "CHANGE_LIST_TITLE": {
       const { listId, listTitle } = action.payload;
       return {
         ...state,
-        [listId]: { ...state[listId], title: listTitle }
+        [listId]: { ...state[listId], title: listTitle },
       };
     }
     case "DELETE_LIST": {
@@ -51,16 +52,12 @@ const listsById = (state = {}, action) => {
       const { listId, cardId } = action.payload;
       return {
         ...state,
-        [listId]: { ...state[listId], cards: [...state[listId].cards, cardId] }
+        [listId]: { ...state[listId], cards: [...state[listId].cards, cardId] },
       };
     }
     case "MOVE_CARD": {
-      const {
-        oldCardIndex,
-        newCardIndex,
-        sourceListId,
-        destListId
-      } = action.payload;
+      const { oldCardIndex, newCardIndex, sourceListId, destListId } =
+        action.payload;
       // Move within the same list
       if (sourceListId === destListId) {
         const newCards = Array.from(state[sourceListId].cards);
@@ -68,7 +65,7 @@ const listsById = (state = {}, action) => {
         newCards.splice(newCardIndex, 0, removedCard);
         return {
           ...state,
-          [sourceListId]: { ...state[sourceListId], cards: newCards }
+          [sourceListId]: { ...state[sourceListId], cards: newCards },
         };
       }
       // Move card from one list to another
@@ -79,18 +76,18 @@ const listsById = (state = {}, action) => {
       return {
         ...state,
         [sourceListId]: { ...state[sourceListId], cards: sourceCards },
-        [destListId]: { ...state[destListId], cards: destinationCards }
+        [destListId]: { ...state[destListId], cards: destinationCards },
       };
     }
     case "DELETE_CARD": {
       const { cardId: deletedCardId, listId } = action.payload;
-      const filterDeleted = cardId => cardId !== deletedCardId;
+      const filterDeleted = (cardId) => cardId !== deletedCardId;
       return {
         ...state,
         [listId]: {
           ...state[listId],
-          cards: state[listId].cards.filter(filterDeleted)
-        }
+          cards: state[listId].cards.filter(filterDeleted),
+        },
       };
     }
     default:
@@ -117,7 +114,7 @@ const cardsById = (state = {}, action) => {
     case "DELETE_LIST": {
       const { cards: cardIds } = action.payload;
       return Object.keys(state)
-        .filter(cardId => !cardIds.includes(cardId))
+        .filter((cardId) => !cardIds.includes(cardId))
         .reduce(
           (newState, cardId) => ({ ...newState, [cardId]: state[cardId] }),
           {}
@@ -131,10 +128,10 @@ const cardsById = (state = {}, action) => {
 const reducers = combineReducers({
   board,
   listsById,
-  cardsById
+  cardsById,
 });
 
-const saveState = state => {
+const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem("state", serializedState);

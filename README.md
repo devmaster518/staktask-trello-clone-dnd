@@ -15,6 +15,8 @@ $ npm start
 
 Visit http://localhost:3000/
 
+![StakTask Trello Clone](screenshot.png)
+
 ## modules
 
 - [redux](https://redux.js.org): to manage the global state of the app

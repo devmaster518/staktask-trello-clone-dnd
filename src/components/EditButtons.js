@@ -1,6 +1,6 @@
-import "../styles/EditButtons.css";
-
 import React from "react";
+
+import "../styles/EditButtons.css";
 
 const EditButtons = ({ handleSave, saveLabel, handleDelete, handleCancel }) => (
   <div className="Edit-Buttons">

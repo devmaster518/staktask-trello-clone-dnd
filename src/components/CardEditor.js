@@ -1,17 +1,17 @@
-import "../styles/CardEditor.css";
-
 import React, { Component } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+
 import EditButtons from "./EditButtons";
+import "../styles/CardEditor.css";
 
 class CardEditor extends Component {
   state = {
-    text: this.props.text || ""
+    text: this.props.text || "",
   };
 
-  handleChangeText = event => this.setState({ text: event.target.value });
+  handleChangeText = (event) => this.setState({ text: event.target.value });
 
-  onEnter = e => {
+  onEnter = (e) => {
     const { text } = this.state;
 
     if (e.keyCode === 13) {

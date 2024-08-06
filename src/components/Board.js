@@ -1,15 +1,14 @@
-import "../styles/Board.css";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import List from "./List";
 import AddList from "./AddList";
+import "../styles/Board.css";
 
 class Board extends Component {
   state = {
-    addingList: false
+    addingList: false,
   };
 
   toggleAddingList = () =>
@@ -29,8 +28,8 @@ class Board extends Component {
           type: "MOVE_LIST",
           payload: {
             oldListIndex: source.index,
-            newListIndex: destination.index
-          }
+            newListIndex: destination.index,
+          },
         });
       }
       return;
@@ -47,8 +46,8 @@ class Board extends Component {
           sourceListId: source.droppableId,
           destListId: destination.droppableId,
           oldCardIndex: source.index,
-          newCardIndex: destination.index
-        }
+          newCardIndex: destination.index,
+        },
       });
     }
   };
@@ -88,6 +87,6 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = state => ({ board: state.board });
+const mapStateToProps = (state) => ({ board: state.board });
 
 export default connect(mapStateToProps)(Board);
